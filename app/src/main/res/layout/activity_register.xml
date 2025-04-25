@@ -8,7 +8,6 @@
     tools:context=".RegisterActivity"
     android:paddingHorizontal="40dp">
 
-
     <ImageView
         android:layout_width="215dp"
         android:layout_height="65dp"
