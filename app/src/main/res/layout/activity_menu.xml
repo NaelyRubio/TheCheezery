@@ -29,14 +29,18 @@
         />
 
     <GridLayout
+        android:id="@+id/grid_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:columnCount="2"
+        android:padding="24dp"
         android:layout_marginTop="20dp"
         android:paddingHorizontal="50dp">
 
-        <Button
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_cold_drinks"
+            android:layout_height="wrap_content"
             android:layout_row="0"
             android:layout_column="0"
             android:layout_columnWeight="1"
@@ -49,7 +53,7 @@
             android:textColor="@color/dusty_white"
             android:textSize="@dimen/menu_buttons_text" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:text="@string/hot_drinks"
             android:textColor="@color/dusty_white"
             android:background="@drawable/first_gradient"
@@ -61,7 +65,7 @@
             android:paddingVertical="@dimen/menu_buttons_padding_v"
             android:id="@+id/button_hot_drinks" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:text="@string/sweets"
             android:textColor="@color/dusty_white"
             android:background="@drawable/second_gradient"
@@ -73,7 +77,7 @@
             android:paddingVertical="@dimen/menu_buttons_padding_v"
             android:id="@+id/button_sweets" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:text="@string/salties"
             android:textColor="@color/dusty_white"
             android:background="@drawable/second_gradient"
@@ -86,7 +90,7 @@
             android:id="@+id/button_salties"
             />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:text="@string/combos"
             android:textColor="@color/dusty_white"
             android:background="@drawable/third_gradient"
@@ -99,7 +103,7 @@
             android:id="@+id/button_combos"
             />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:text="@string/customizable"
             android:textColor="@color/dusty_white"
             android:background="@drawable/third_gradient"
