@@ -2,10 +2,12 @@ package rubio.naely.thecheezery
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
@@ -19,6 +21,9 @@ import org.w3c.dom.Text
 class ProductosActivity : AppCompatActivity() {
 
     var coldDrinks = ArrayList<Product>()
+    var hotDrinks = ArrayList<Product>()
+    var sweets = ArrayList<Product>()
+    var salties = ArrayList<Product>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,22 +31,79 @@ class ProductosActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_productos)
 
-        agregarProductos()
+        val botonRegresar = findViewById<Button>(R.id.button_back)
+        botonRegresar.setOnClickListener {
+            finish()
+        }
 
-        var listView: ListView  = findViewById(R.id.listView) as ListView
+        agregarColdDrinks()
+        agregarHotDrinks()
+        agregarSweets()
+        agregarSalties()
 
-        var adapador : AdapatdorProductos = AdapatdorProductos(this, coldDrinks)
-        listView.adapter = adapador
+        var listView: ListView = findViewById(R.id.listView) as ListView
+
+        val categoria = intent.getStringExtra("categoria")
+
+        val productosSeleccionados = when (categoria) {
+            "coldDrinks" -> coldDrinks
+            "hotDrinks" -> hotDrinks
+            "sweets" -> sweets
+            "salties" -> salties
+            else -> {
+                Log.e("ProductosActivity", "Categoría desconocida: $categoria")
+                ArrayList()
+            }
+        }
+
+        val adaptador = AdapatdorProductos(this, productosSeleccionados)
+        listView.adapter = adaptador
+
+
+        val tituloImage = findViewById<ImageView>(R.id.tituloImagen)
+
+        when (categoria) {
+            "coldDrinks" -> tituloImage.setImageResource(R.drawable.cold_drinks)
+            "hotDrinks" -> tituloImage.setImageResource(R.drawable.hot_drinks)
+            "sweets" -> tituloImage.setImageResource(R.drawable.sweets)
+            "salties" -> tituloImage.setImageResource(R.drawable.salties)
+            else -> tituloImage.setImageResource(R.drawable.cold_drinks) // default
+        }
 
     }
-
-    fun agregarProductos() {
-        coldDrinks.add(Product("Caramel Frap", R.drawable.caramel_frap, "Caramel syrup meets coffee, milk and ice and whipped cream and buttery caramel sauce layer the love on top.", 5.0))
-        coldDrinks.add(Product("Chocolate Frap", R.drawable.chocolate_frap, "Rich mocha-flavored sauce meets up with chocolaty chips, milk and ice for a blender bash.", 6.0))
-        coldDrinks.add(Product("Cold Brew", R.drawable.coldbrew, "Created by steeping medium-to-coarse ground coffee in room temperature water for 12 hours or longer.", 3.0))
+    fun agregarColdDrinks() {
+        coldDrinks.add(Product("Caramel Frap", R.drawable.caramel_frap, "Caramel syrup meets coffee, milk and ice and whipped cream and buttery caramel sauce layer the love on top.", 5.00))
+        coldDrinks.add(Product("Chocolate Frap", R.drawable.chocolate_frap, "Rich mocha-flavored sauce meets up with chocolaty chips, milk and ice for a blender bash.", 6.00))
+        coldDrinks.add(Product("Cold Brew", R.drawable.coldbrew, "Created by steeping medium-to-coarse ground coffee in room temperature water for 12 hours or longer.", 3.00))
         coldDrinks.add(Product("Matcha Latte", R.drawable.matcha, "Leafy taste of matcha green tea powder with creamy milk and a little sugar for a flavor balance that will leave you feeling ready and raring to go.", 4.0))
-        coldDrinks.add(Product("Oreo Milkshake", R.drawable.oreomilkshake, "Chocolate ice cream, and oreo cookies. Topped with whipped cream with cocoa and chocolate syrup.", 7.0))
-        coldDrinks.add(Product("Peanut Milkshake", R.drawable.peanutmilkshake, "Vanilla ice cream, mixed with peanut butter and chocolate.", 7.0))
+        coldDrinks.add(Product("Oreo Milkshake", R.drawable.oreomilkshake, "Chocolate ice cream, and oreo cookies. Topped with whipped cream with cocoa and chocolate syrup.", 7.00))
+        coldDrinks.add(Product("Peanut Milkshake", R.drawable.peanutmilkshake, "Vanilla ice cream, mixed with peanut butter and chocolate.", 7.00))
+    }
+
+    fun agregarHotDrinks() {
+        hotDrinks.add(Product("Latte", R.drawable.latte, "Coffee drink made with espresso and steamed milk", 6.00))
+        hotDrinks.add(Product("Hot chocolate", R.drawable.hotchocolate, "Heated drink consisting of shaved chocolate, topped with marshmallows.", 5.00))
+        hotDrinks.add(Product("Espresso", R.drawable.espresso, "Full-flavored, concentrated form of coffee.", 4.00))
+        hotDrinks.add(Product("Chai Latte", R.drawable.chailatte, "Spiced tea concentrate with milk", 6.00))
+        hotDrinks.add(Product("Capuccino", R.drawable.capuccino, "A cappuccino is an espresso-based coffee drink, prepared with steamed foam.", 7.00))
+        hotDrinks.add(Product("American coffee", R.drawable.americano, "Espresso with hot water", 2.00))
+    }
+
+    fun agregarSweets() {
+        sweets.add(Product("Blueberry cake", R.drawable.blueberrycake, "Vanilla cake flavor, topped with cheese topping and blueberries.", 6.00))
+        sweets.add(Product("Chocolate cupcake", R.drawable.chocolatecupcake, "Chocolate cupcakes topped with butter cream and cherries", 3.00))
+        sweets.add(Product("Lemon tartalette", R.drawable.lemontartalette, "Pastry shell with a lemon flavored filling", 4.00))
+        sweets.add(Product("Red Velvet cake", R.drawable.redvelvetcake, "Soft, moist, buttery cake topped with an easy cream cheese frosting.", 6.00))
+        sweets.add(Product("Cherry cheesecake", R.drawable.strawberrycheesecake, "This cherry topped cheesecake is positively creamy and delicious and will be your new favorite dessert.", 7.00))
+        sweets.add(Product("Tiramisu", R.drawable.tiramisu, "Coffee-flavored Italian dessert", 6.00))
+    }
+
+    fun agregarSalties() {
+        salties.add(Product("Chicken crepes", R.drawable.chickencrepes, "Fine crepes stuffed with Alfredo chicken, spinach and mushrooms.", 6.00))
+        salties.add(Product("Club Sandwich", R.drawable.clubsandwich, "A delicious sandwich served with french fries.", 5.00))
+        salties.add(Product("Panini", R.drawable.hampanini, "Sandwich made with Italian bread served warmed by grilling.", 4.00))
+        salties.add(Product("Philly cheese steak", R.drawable.phillycheesesteak, "Smothered in grilled onions, green peppers, mushrooms, and Provolone.", 6.00))
+        salties.add(Product("Nachos", R.drawable.nachos, "Tortilla chips layered with beef and melted cheddar cheese. Served with fried beans, guacamole, pico de gallo, and sour topping.", 7.00))
     }
 
     private class  AdapatdorProductos:BaseAdapter{
@@ -50,7 +112,7 @@ class ProductosActivity : AppCompatActivity() {
 
         constructor(context: Context, productos: ArrayList<Product>){
             this.productos= productos
-            this.contexto= contexto
+            this.contexto= context
         }
 
         override fun getCount(): Int {
@@ -84,6 +146,7 @@ class ProductosActivity : AppCompatActivity() {
 
 
         }
+
 
 
     }

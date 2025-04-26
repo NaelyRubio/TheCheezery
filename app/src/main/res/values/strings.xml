@@ -16,5 +16,7 @@
     <string name="salties">Salties</string>
     <string name="combos">Combos</string>
     <string name="customizable">Customizable</string>
+    <string name="titulo_categoria">Título de la categoría</string>
+
 
 </resources>

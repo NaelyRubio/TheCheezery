@@ -14,7 +14,7 @@ class RegisterActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_register)
 
-        val button: Button = findViewById(R.id.sing_in_button) as Button
+        val button: Button = findViewById(R.id.sign_in_button) as Button
 
         button.setOnClickListener{
             var intent: Intent = Intent(this, MenuActivity:: class.java)
